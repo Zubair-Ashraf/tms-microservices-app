@@ -1,10 +1,12 @@
-export class DatabaseConnectionError extends Error {
+import { CustomError } from './custom-base';
+
+export class DatabaseConnectionError extends CustomError {
   error: string = 'Database connection failed';
 
   statusCode: number = 500;
 
   constructor(error: string) {
-    super();
+    super(error);
 
     this.error = error;
 

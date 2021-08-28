@@ -7,11 +7,7 @@ export const errorhandler = (
   res: Response,
   next: NextFunction
 ) => {
-  if (error instanceof errors.RequestValidationError) {
-    res.status(error.statusCode).send({ errors: error.serializeErrors() });
-  }
-
-  if (error instanceof errors.DatabaseConnectionError) {
+  if (error instanceof errors.CustomError) {
     res.status(error.statusCode).send({ errors: error.serializeErrors() });
   }
 
