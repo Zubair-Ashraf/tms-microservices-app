@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-mongo-deployment
+spec:
+  selector:
+    matchLabels:
+      app: tms-auth-mongo
+  template:
+    metadata:
+      labels:
+        app: tms-auth-mongo
+    spec:
+      containers:
+      - name: tms-auth-mongo
+        image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-mongo-service
+spec:
+  selector:
+    app: tms-auth-mongo
+  ports:
+  - name: tms-auth-mongo-db
+    protocol: TCP
+    port: 27017
+    targetPort: 27017
