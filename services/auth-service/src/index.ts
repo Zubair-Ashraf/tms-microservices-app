@@ -7,13 +7,12 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.use(routes.SignInRouter);
-
-app.use(routes.SignUpRouter);
-
-app.use(routes.SignOutRouter);
-
-app.use(routes.CurrentUserRouter);
+app.use('/api/auth', [
+  routes.SignInRouter,
+  routes.SignUpRouter,
+  routes.SignOutRouter,
+  routes.CurrentUserRouter,
+]);
 
 app.listen(port, () =>
   console.log(`Auth service is listening at port: ${port}`)
