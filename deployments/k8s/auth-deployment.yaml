@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-deployment
+  name: auth-depl
 spec:
   replicas: 1
   selector:
@@ -15,18 +15,18 @@ spec:
       containers:
       - name: auth
         image: zubairashraf/tms-auth-service
-
+        ports:
+          - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-service
+  name: auth-srv
 spec:
   selector:
     app: auth
   ports:
-  - name: auth
-    protocol: TCP
-    port: 3000
-    targetPort: 3000
-
+    - name: auth
+      protocol: TCP
+      port: 80
+      targetPort: 3000
