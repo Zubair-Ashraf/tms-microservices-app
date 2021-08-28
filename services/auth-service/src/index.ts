@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-async-errors';
 import * as routes from './routes';
 import * as middlewares from './middlewares';
 import { NotFoundError } from './classes/errors';
