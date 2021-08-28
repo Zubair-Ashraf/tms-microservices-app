@@ -1,6 +1,7 @@
 import express from 'express';
 import * as routes from './routes';
 import * as middlewares from './middlewares';
+import { NotFoundError } from './classes/errors';
 
 const app = express();
 
@@ -14,6 +15,10 @@ app.use('/api/auth', [
   routes.SignOutRouter,
   routes.CurrentUserRouter,
 ]);
+
+app.all('*', () => {
+  throw new NotFoundError();
+});
 
 app.use(middlewares.errorhandler);
 
