@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-depl
+  name: tms-auth-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth
+      app: tms-auth
   template:
     metadata:
       labels:
-        app: auth
+        app: tms-auth
     spec:
       containers:
-      - name: auth
+      - name: tms-auth
         image: zubairashraf/tms-auth-service
         ports:
           - containerPort: 3000
@@ -21,12 +21,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-srv
+  name: auth-service
 spec:
   selector:
-    app: auth
+    app: tms-auth
   ports:
-    - name: auth
+    - name: tms-auth
       protocol: TCP
       port: 80
       targetPort: 3000

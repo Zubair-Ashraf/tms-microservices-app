@@ -13,6 +13,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: auth-srv
+                name: auth-service
                 port:
                   number: 80
