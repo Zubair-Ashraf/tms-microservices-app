@@ -2,7 +2,8 @@ import express from 'express';
 import 'express-async-errors';
 import * as routes from './routes';
 import * as middlewares from './middlewares';
-import { NotFoundError } from './classes/errors';
+import { DatabaseConnectionError, NotFoundError } from './classes/errors';
+import { DatabaseConnection } from './connections';
 
 const app = express();
 
@@ -23,6 +24,12 @@ app.all('*', () => {
 
 app.use(middlewares.errorhandler);
 
-app.listen(port, () =>
-  console.log(`Auth service is listening at port: ${port}`)
-);
+DatabaseConnection()
+  .then(() => {
+    app.listen(port, () =>
+      console.log(`Auth service is listening at port: ${port}`)
+    );
+  })
+  .catch(() => {
+    throw new DatabaseConnectionError();
+  });
