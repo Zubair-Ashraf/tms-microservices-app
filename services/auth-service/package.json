@@ -4,7 +4,7 @@
   "description": "Authentication services for ticketing app.",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev src/index.ts"
+    "dev": "env-cmd -f ./config/dev.env ts-node-dev src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
   "dependencies": {
     "@types/express": "^4.17.13",
     "@types/mongoose": "^5.11.97",
+    "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "mongoose": "^6.0.2",
