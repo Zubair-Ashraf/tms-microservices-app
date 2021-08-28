@@ -1,5 +1,6 @@
 import express from 'express';
 import * as routes from './routes';
+import * as middlewares from './middlewares';
 
 const app = express();
 
@@ -13,6 +14,8 @@ app.use('/api/auth', [
   routes.SignOutRouter,
   routes.CurrentUserRouter,
 ]);
+
+app.use(middlewares.errorhandler);
 
 app.listen(port, () =>
   console.log(`Auth service is listening at port: ${port}`)
