@@ -1,9 +1,9 @@
-import express, { Response, Request } from 'express';
+import express from 'express';
+import { SignUpValidationSchema } from '../validations/schemas';
+import * as controllers from '../controllers';
 
 const router = express.Router();
 
-router.get('/signup', (req: Request, res: Response) => {
-  res.send('signup');
-});
+router.post('/signup', SignUpValidationSchema, controllers.Signup);
 
 export { router as SignUpRouter };
