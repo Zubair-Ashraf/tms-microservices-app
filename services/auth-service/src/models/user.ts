@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
-interface UserAttr {
+interface UserAttrs {
   email: string;
   password: string;
 }
 
 interface UserModel extends mongoose.Model<UserDoc> {
-  build(attrs: UserAttr): UserDoc;
+  build(attrs: UserAttrs): UserDoc;
 }
 
 interface UserDoc extends mongoose.Document {
@@ -24,5 +24,9 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
 });
+
+UserSchema.statics.build = (attrs: UserAttrs) => {
+  return new User(attrs);
+};
 
 export const User = mongoose.model<UserDoc, UserModel>('User', UserSchema);
