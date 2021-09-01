@@ -40,6 +40,16 @@ class AuthService {
 
     return user;
   }
+
+  async getUserById(id: string) {
+    const user = await User.findById(id);
+
+    if (!user) {
+      throw new BadRequestError('User not found');
+    }
+
+    return user;
+  }
 }
 
 export default new AuthService();
