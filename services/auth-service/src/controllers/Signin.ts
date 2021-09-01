@@ -2,9 +2,8 @@ import { Request, Response } from 'express';
 import { generateToken } from '../helpers';
 import { AuthService } from '../services';
 
-export const Signup = async (req: Request, res: Response) => {
-  
-  const user = await AuthService.createUser(req.body);
+export const Signin = async (req: Request, res: Response) => {
+  const user = await AuthService.loggedIn(req.body);
 
   const token = generateToken({ id: user.id, email: user.email });
 

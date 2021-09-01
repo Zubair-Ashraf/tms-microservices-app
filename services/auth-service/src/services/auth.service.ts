@@ -1,7 +1,7 @@
 import { BadRequestError } from '../classes/errors';
-import { CreateUserDto } from '../interfaces/dto';
+import { CreateUserDto, LoggedInUserDto } from '../interfaces/dto';
 import { User } from '../models';
-import { toHashPassword } from '../helpers';
+import { compareHashPassword, toHashPassword } from '../helpers';
 
 class AuthService {
   async createUser(resource: CreateUserDto) {
@@ -18,6 +18,27 @@ class AuthService {
     const user = User.build({ email, password });
 
     return user.save();
+  }
+
+  async loggedIn(resource: LoggedInUserDto) {
+    const { email, password } = resource;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      throw new BadRequestError('Invalid credentials');
+    }
+
+    const isPasswordMatched = await compareHashPassword(
+      user.password,
+      password
+    );
+
+    if (!isPasswordMatched) {
+      throw new BadRequestError('Invalid credentials');
+    }
+
+    return user;
   }
 }
 
