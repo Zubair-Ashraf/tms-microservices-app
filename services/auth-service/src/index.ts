@@ -1,5 +1,6 @@
 import express from 'express';
 import 'express-async-errors';
+import cookieSession from 'cookie-session';
 import * as routes from './routes';
 import * as middlewares from './middlewares';
 import { DatabaseConnectionError, NotFoundError } from './classes/errors';
@@ -10,6 +11,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+
+app.set('trust proxy', true);
+
+app.use(cookieSession({ secure: false, signed: false }));
 
 app.use('/api/auth', [
   routes.SignInRouter,
