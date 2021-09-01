@@ -9,7 +9,7 @@ spec:
     - host: tms.dev
       http:
         paths:
-          - path: /
+          - path: /api/auth/?(.*)
             pathType: Prefix
             backend:
               service:
