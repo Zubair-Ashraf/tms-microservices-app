@@ -17,6 +17,12 @@ spec:
         image: zubairashraf/tms-auth-service
         ports:
           - containerPort: 3000
+        env:
+          - name: jwt_secret
+            valueFrom:
+              secretKeyRef:
+                name: tms-secrets
+                key: jwt-secret
 ---
 apiVersion: v1
 kind: Service
