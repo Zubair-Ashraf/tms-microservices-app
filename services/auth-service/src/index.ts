@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request } from 'express';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import * as routes from './routes';
@@ -23,8 +23,8 @@ app.use('/api/auth', [
   routes.CurrentUserRouter,
 ]);
 
-app.all('*', () => {
-  throw new NotFoundError();
+app.all('*', (req: Request) => {
+  throw new NotFoundError(req.path);
 });
 
 app.use(middlewares.errorhandler);
