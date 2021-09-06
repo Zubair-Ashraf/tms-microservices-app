@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 
-const APP = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }) => {
   return <Component {...pageProps} />;
 };
 
