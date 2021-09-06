@@ -1,0 +1,28 @@
+{
+  "name": "tms-app",
+  "version": "1.0.0",
+  "description": "To manage tickets purchasing and selling system",
+  "main": "index.js",
+  "scripts": {
+    "start": "next"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zubair-ashraf"
+  },
+  "keywords": [
+    "tms",
+    "ticketing-management-system",
+    "nextjs",
+    "reactjs",
+    "ticketing management system react app",
+    "ticketing-management-system-react-app"
+  ],
+  "author": "Zubair Ashraf",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^11.1.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
