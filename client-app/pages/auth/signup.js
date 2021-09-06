@@ -1,13 +1,22 @@
 import { useState } from 'react';
+import useRequest from '../../hooks/useRequest';
 
 const Signup = () => {
   const [values, setValues] = useState();
+
+  const { onRequest, errors } = useRequest({
+    url: 'api/users/signup',
+    method: 'post',
+    data: { ...values },
+  });
 
   const handleValueChange = ({ target: { name, value } }) =>
     setValues({ ...values, [name]: value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    onRequest();
   };
 
   return (
@@ -30,7 +39,12 @@ const Signup = () => {
           onChange={handleValueChange}
         />
       </div>
-      <button type='button' class='btn btn-primary'>
+      <ul>
+        {errors.map((message, index) => (
+          <li key={index}>{message}</li>
+        ))}
+      </ul>
+      <button type='submit' class='btn btn-primary'>
         Signup
       </button>
     </form>
