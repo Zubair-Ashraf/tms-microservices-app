@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Router from 'next/router';
 import useRequest from '../../hooks/useRequest';
 
 const Signup = () => {
@@ -8,6 +9,7 @@ const Signup = () => {
     url: 'api/users/signup',
     method: 'post',
     data: { ...values },
+    onSuccess: () => Router.push('/'),
   });
 
   const handleValueChange = ({ target: { name, value } }) =>
@@ -39,11 +41,13 @@ const Signup = () => {
           onChange={handleValueChange}
         />
       </div>
-      <ul>
-        {errors.map((message, index) => (
-          <li key={index}>{message}</li>
-        ))}
-      </ul>
+      {errors && (
+        <ul>
+          {errors.map((message, index) => (
+            <li key={index}>{message}</li>
+          ))}
+        </ul>
+      )}
       <button type='submit' class='btn btn-primary'>
         Signup
       </button>
