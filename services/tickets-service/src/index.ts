@@ -32,7 +32,7 @@ app.use(middlewares.errorhandler);
 DatabaseConnection()
   .then(() => {
     app.listen(port, () =>
-      console.log(`Tickets service is listening at port: ${port}`)
+      console.log(`Ticket service is listening at port: ${port}`)
     );
   })
   .catch(() => {
