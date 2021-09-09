@@ -1,4 +1,4 @@
-import { BadRequestError } from '../classes/errors';
+import { BadRequestError } from '@zkode/tms-lib';
 import { CreateUserDto, LoggedInUserDto } from '../interfaces/dto';
 import { User } from '../models';
 import { compareHashPassword, toHashPassword } from '../helpers';

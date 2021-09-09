@@ -2,8 +2,8 @@ import express, { Request } from 'express';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import * as routes from './routes';
-import * as middlewares from './middlewares';
-import { DatabaseConnectionError, NotFoundError } from './classes/errors';
+import * as middlewares from '@zkode/tms-lib';
+import { DatabaseConnectionError, NotFoundError } from '@zkode/tms-lib';
 import { DatabaseConnection } from './connections';
 
 const app = express();
