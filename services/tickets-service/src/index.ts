@@ -4,7 +4,7 @@ import cookieSession from 'cookie-session';
 // import * as routes from './routes';
 import * as middlewares from '@zkode/tms-lib';
 import { DatabaseConnectionError, NotFoundError } from '@zkode/tms-lib';
-// import { DatabaseConnection } from './connections';
+import { DatabaseConnection } from './connections';
 
 const app = express();
 
@@ -29,16 +29,12 @@ app.all('*', (req: Request) => {
 
 app.use(middlewares.errorhandler);
 
-// DatabaseConnection()
-//   .then(() => {
-//     app.listen(port, () =>
-//       console.log(`Tickets service is listening at port: ${port}`)
-//     );
-//   })
-//   .catch(() => {
-//     throw new DatabaseConnectionError();
-//   });
-
-app.listen(port, () =>
-  console.log(`Tickets service is listening at port: ${port}`)
-);
+DatabaseConnection()
+  .then(() => {
+    app.listen(port, () =>
+      console.log(`Tickets service is listening at port: ${port}`)
+    );
+  })
+  .catch(() => {
+    throw new DatabaseConnectionError();
+  });
