@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import * as errors from '../classes/errors';
+import * as errors from '../errors';
 
 export const errorhandler = (
   error: Error,

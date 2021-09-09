@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import { NotAuthenticateError } from '../classes/errors';
+import { NotAuthenticateError } from '../errors';
 
 interface UserPayload {
   id: string;
