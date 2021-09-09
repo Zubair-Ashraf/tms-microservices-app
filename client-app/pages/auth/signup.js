@@ -23,6 +23,7 @@ const Signup = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <h1>Sign up</h1>
       <div className='form-group'>
         <label for=''>Email Address</label>
         <input
