@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tms-tickets-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tms-tickets
+  template:
+    metadata:
+      labels:
+        app: tms-tickets
+    spec:
+      containers:
+      - name: tms-tickets
+        image: zubairashraf/tms-tickets-service
+        ports:
+          - containerPort: 3000
+        env:
+          - name: JWT_SECRECT_KEY
+            valueFrom:
+              secretKeyRef:
+                name: tms-secrets
+                key: JWT_SECRECT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tickets-service
+spec:
+  selector:
+    app: tms-tickets
+  ports:
+    - name: tms-tickets
+      protocol: TCP
+      port: 80
+      targetPort: 3000
