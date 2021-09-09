@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import buildClient from '../api/build-client';
 
 const LandingPage = ({ currentUser }) => {
   const isLoggedIn = currentUser;
@@ -8,21 +8,12 @@ const LandingPage = ({ currentUser }) => {
   else return <h1>You are not signed in</h1>;
 };
 
-LandingPage.getInitialProps = async ({ req }) => {
-  if (typeof window === 'undefined') {
-    const response = await axios.get(
-      'http://ingress-nginx.ingress-nginx.svc.cluster.local/api/auth/current-user',
-      {
-        headers: req.headers,
-      }
-    );
+LandingPage.getInitialProps = async (context) => {
+  const client = buildClient(context);
 
-    return response.data;
-  } else {
-    const response = await axios.get('/api/auth/current-user');
+  const { data } = await client.get('/api/auth/current-user');
 
-    return response.data;
-  }
+  return data;
 };
 
 export default LandingPage;
