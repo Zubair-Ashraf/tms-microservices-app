@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name: tms-configmap
 data:
-  MONGOOSE_CONNECTION_STRING: mongodb://auth-mongo-service:27017/auth
+  AUTH_MONGOOSE_CONNECTION_STRING: mongodb://auth-mongo-service:27017/auth
+  TICKETS_MONGOOSE_CONNECTION_STRING: mongodb://tickets-mongo-service:27017/tickets

@@ -27,7 +27,7 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: tms-configmap
-                key: MONGOOSE_CONNECTION_STRING
+                key: AUTH_MONGOOSE_CONNECTION_STRING
 ---
 apiVersion: v1
 kind: Service
