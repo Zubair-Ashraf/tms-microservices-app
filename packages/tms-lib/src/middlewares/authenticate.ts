@@ -33,7 +33,7 @@ export const authenticate = (
     throw new NotAuthenticateError();
   }
 
-  req.body = { userId: payload.id };
+  req.body = { ...req.body, userId: payload.id };
 
   next();
 };

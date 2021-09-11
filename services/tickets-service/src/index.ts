@@ -1,7 +1,7 @@
 import express, { Request } from 'express';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
-// import * as routes from './routes';
+import * as routes from './routes';
 import * as middlewares from '@zkode/tms-lib';
 import { DatabaseConnectionError, NotFoundError } from '@zkode/tms-lib';
 import { DatabaseConnection } from './connections';
@@ -16,12 +16,7 @@ app.set('trust proxy', true);
 
 app.use(cookieSession({ secure: false, signed: false }));
 
-// app.use('/api/auth', [
-//   routes.SignInRouter,
-//   routes.SignUpRouter,
-//   routes.SignOutRouter,
-//   routes.CurrentUserRouter,
-// ]);
+app.use('/api/tickets', [routes.CreateTicketRouter]);
 
 app.all('*', (req: Request) => {
   throw new NotFoundError(req.path);
