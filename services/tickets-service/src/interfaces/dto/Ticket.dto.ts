@@ -3,3 +3,7 @@ export interface CreateTicketDto {
   price: number;
   userId: string;
 }
+export interface UpdateTicketDto {
+  title?: string;
+  price?: number;
+}

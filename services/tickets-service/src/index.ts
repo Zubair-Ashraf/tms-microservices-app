@@ -16,7 +16,11 @@ app.set('trust proxy', true);
 
 app.use(cookieSession({ secure: false, signed: false }));
 
-app.use('/api/tickets', [routes.CreateTicketRouter]);
+app.use('/api/tickets', [
+  routes.GetTicketRouter,
+  routes.CreateTicketRouter,
+  routes.UpdateTicketRouter,
+]);
 
 app.all('*', (req: Request) => {
   throw new NotFoundError(req.path);
