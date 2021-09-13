@@ -1,0 +1,26 @@
+{
+  "name": "@tms/nats-streaming",
+  "version": "1.0.0",
+  "description": "Event bus for sharing events across the micro-services",
+  "main": "index.js",
+  "scripts": {
+    "publish": "ts-node-dev --notify false src/publisher.ts",
+    "listen": "ts-node-dev --notify false src/listener.ts"
+  },
+  "keywords": [
+    "tms-nats-streaming",
+    "nats-streaming"
+  ],
+  "author": "Zubair-Ashraf",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zubair-Ashraf/tms-microservices-app/nats-streaming.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^13.11.1",
+    "node-nats-streaming": "^0.2.6",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.8.3"
+  }
+}
