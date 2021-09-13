@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tms-nats-deployment
+spec:
+  selector:
+    matchLabels:
+      app: tms-nats
+  template:
+    metadata:
+      labels:
+        app: tms-nats
+    spec:
+      containers:
+      - name: tms-nats
+        image: nats-streaming
+        args: [
+          '-p',
+          '4222',
+          '-m',
+          '8222',
+          '-hbi',
+          '5s',
+          '-hbt',
+          '5s',
+          '-hbf',
+          '2',
+          '-SD',
+          '-cid',
+          'ticketing'
+        ]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nats-service
+spec:
+  selector:
+    app: tms-nats
+  ports:
+  - name: client
+    protocol: TCP
+    port: 4222
+    targetPort: 4222
+  - name: monitoring
+    protocol: TCP
+    port: 8222
+    targetPort: 8222
