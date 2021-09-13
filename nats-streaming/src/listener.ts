@@ -1,19 +1,12 @@
-import nats, { Message } from 'node-nats-streaming';
+import nats from 'node-nats-streaming';
+import { TicketCreatedListener } from './events/create-ticket-listener';
 
-const stan = nats.connect('ticketing', '123', {
+const stan = nats.connect('ticketing', `123`, {
   url: 'http://localhost:4222',
 });
 
 stan.on('connect', () => {
-  console.log('Listener connected to NATS');
+  console.log('Listener connected!');
 
-  const subscription = stan.subscribe('ticket:created');
-
-  subscription.on('message', (msg: Message) => {
-    const data = msg.getData();
-
-    if (typeof data === 'string') {
-      console.log(data);
-    }
-  });
+  new TicketCreatedListener(stan).listen();
 });
