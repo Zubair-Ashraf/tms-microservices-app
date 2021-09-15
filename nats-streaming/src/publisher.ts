@@ -5,7 +5,7 @@ const client = nats.connect('ticketing', 'abc', {
   url: 'http://localhost:4222',
 });
 
-client.on('connect', () => {
+client.on('connect', async () => {
   console.log('Publisher connected to NATS');
 
   const data = {
@@ -14,5 +14,7 @@ client.on('connect', () => {
     price: 20,
   };
 
-  new TicketCreatedPublisher(client).publish(data);
+  const publisher = new TicketCreatedPublisher(client);
+
+  await publisher.publish(data);
 });
