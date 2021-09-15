@@ -3,8 +3,9 @@ import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import * as routes from './routes';
 import * as middlewares from '@zkode/tms-lib';
-import { DatabaseConnectionError, NotFoundError } from '@zkode/tms-lib';
-import { DatabaseConnection } from './connections';
+import { NotFoundError } from '@zkode/tms-lib';
+import { DatabaseConnection, NatsConnection } from './connections';
+import { natsClient } from './clients';
 
 const app = express();
 
@@ -28,12 +29,34 @@ app.all('*', (req: Request) => {
 
 app.use(middlewares.errorhandler);
 
-DatabaseConnection()
-  .then(() => {
-    app.listen(port, () =>
-      console.log(`Ticket service is listening at port: ${port}`)
-    );
-  })
-  .catch(() => {
-    throw new DatabaseConnectionError();
-  });
+const launchApp = () => {
+  app.listen(port, () =>
+    console.log(`Ticket service is listening at port: ${port}`)
+  );
+};
+
+const startup = () => {
+  DatabaseConnection()
+    .then(() => console.log('Database connected!'))
+    .catch((err) => console.log('Database connection failed: ', err));
+
+  NatsConnection()
+    .then(() => {
+      console.log('NATS server connected');
+
+      natsClient.client.on('close', (err) => {
+        console.log('NATS server connection closed', err);
+
+        process.exit();
+      });
+
+      process.on('SIGINT', () => natsClient.client.close());
+
+      process.on('SIGTERM', () => natsClient.client.close());
+
+      launchApp();
+    })
+    .catch((err) => console.log('Nats connection failed: ', err));
+};
+
+startup();
