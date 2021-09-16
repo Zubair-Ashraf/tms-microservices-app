@@ -5,3 +5,4 @@ metadata:
 data:
   AUTH_MONGOOSE_CONNECTION_STRING: mongodb://auth-mongo-service:27017/auth
   TICKETS_MONGOOSE_CONNECTION_STRING: mongodb://tickets-mongo-service:27017/tickets
+  ORDERS_MONGOOSE_CONNECTION_STRING: mongodb://orders-mongo-service:27017/orders
