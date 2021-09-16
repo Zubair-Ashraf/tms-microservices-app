@@ -1,15 +1,18 @@
 import mongoose from 'mongoose';
+import { OrderStatus } from '@zkode/tms-lib';
 
 interface OrderAttrs {
-  title: string;
-  price: number;
   userId: string;
+  status: OrderStatus;
+  expiresAt: Date;
+  ticket: TicketDoc;
 }
 
 interface OrderDoc extends mongoose.Document {
-  title: string;
-  price: number;
   userId: string;
+  status: stringOrderStatus;
+  expiresAt: Date;
+  ticket: TicketDoc;
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
@@ -18,17 +21,22 @@ interface OrderModel extends mongoose.Model<OrderDoc> {
 
 const OrderSchema = new mongoose.Schema(
   {
-    title: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
     userId: {
       type: String,
       required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+      enum: Object.values(OrderStatus),
+      default: OrderStatus.Created,
+    },
+    expiresAt: {
+      type: mongoose.Schema.Types.Date,
+    },
+    ticket: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Ticket',
     },
   },
   {
