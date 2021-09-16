@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tms-orders-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tms-orders
+  template:
+    metadata:
+      labels:
+        app: tms-orders
+    spec:
+      containers:
+      - name: tms-orders
+        image: zubairashraf/tms-orders-service
+        ports:
+          - containerPort: 3000
+        env:
+          - name: JWT_SECRECT_KEY
+            valueFrom:
+              secretKeyRef:
+                name: tms-secrets
+                key: JWT_SECRECT_KEY
+          - name: MONGOOSE_CONNECTION_STRING
+            valueFrom:
+              configMapKeyRef:
+                name: tms-configmap
+                key: ORDERS_MONGOOSE_CONNECTION_STRING
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders-service
+spec:
+  selector:
+    app: tms-orders
+  ports:
+    - name: tms-orders
+      protocol: TCP
+      port: 80
+      targetPort: 3000
