@@ -30,7 +30,7 @@
     "@types/cookie-session": "^2.0.43",
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.5",
-    "@zkode/tms-lib": "^1.0.11",
+    "@zkode/tms-lib": "^1.0.12",
     "bcryptjs": "^2.4.3",
     "cookie-session": "^1.4.0",
     "env-cmd": "^10.1.0",
