@@ -16,6 +16,20 @@ spec:
                 name: auth-service
                 port:
                   number: 80
+          - path: /api/tickets/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: tickets-service
+                port:
+                  number: 80
+          - path: /api/orders/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: orders-service
+                port:
+                  number: 80
           - path: /?(.*)
             pathType: Prefix
             backend:
