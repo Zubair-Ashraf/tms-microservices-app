@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-mongo-deployment
+spec:
+  selector:
+    matchLabels:
+      app: tms-orders-mongo
+  template:
+    metadata:
+      labels:
+        app: tms-orders-mongo
+    spec:
+      containers:
+      - name: tms-orders-mongo
+        image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders-mongo-service
+spec:
+  selector:
+    app: tms-orders-mongo
+  ports:
+  - name: tms-orders-mongo-db
+    protocol: TCP
+    port: 27017
+    targetPort: 27017
